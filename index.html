@@ -545,8 +545,11 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 0 20px; }
+      nav { padding: 0 16px; height: 64px; }
       .nav-links { display: none; }
+      .nav-logo img { height: 44px; }
+      .btn-ghost { display: none; }
+      .btn-primary { padding: 9px 16px; font-size: 13px; }
       .features-header { grid-template-columns: 1fr; gap: 20px; }
       .features-grid { grid-template-columns: 1fr; }
       .compare-head, .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
@@ -953,12 +956,14 @@
       <ul class="footer-links">
         <li><a href="https://app.getwrenchapp.com/login">Sign in</a></li>
         <li><a href="https://app.getwrenchapp.com/signup">Sign up</a></li>
-        <li><a href="/cdn-cgi/l/email-protection#f199949d9d9eb19694858683949f9299908181df929e9c">Contact</a></li>
+        <li><a href="/terms.html">Terms</a></li>
+        <li><a href="/privacy.html">Privacy</a></li>
+        <li><a href="mailto:hello@getwrenchapp.com">Contact</a></li>
       </ul>
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -977,5 +982,34 @@
     });
   </script>
 
-</body>
-</html>
+  <!-- COOKIE BANNER -->
+  <div id="cookie-banner" style="
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+    background: var(--navy); border-top: 2px solid var(--orange);
+    padding: 16px 24px; display: flex; align-items: center;
+    justify-content: space-between; gap: 20px; flex-wrap: wrap;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+    font-family: 'Barlow', sans-serif;
+  ">
+    <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; margin: 0; max-width: 680px;">
+      We use cookies to keep you logged in and improve your experience.
+      By using Wrench you agree to our
+      <a href="/privacy.html" style="color: var(--orange); text-decoration: none; font-weight: 600;">Privacy Policy</a>.
+    </p>
+    <button onclick="acceptCookies()" style="
+      background: var(--orange); color: white; border: none;
+      padding: 10px 24px; border-radius: 8px; font-size: 14px;
+      font-weight: 700; cursor: pointer; white-space: nowrap;
+      font-family: 'Barlow', sans-serif; flex-shrink: 0;
+      transition: background 0.2s;
+    " onmouseover="this.style.background='#EA6C0A'" onmouseout="this.style.background='#F97316'">
+      Got it
+    </button>
+  </div>
+
+  <script>
+    function acceptCookies() {
+      localStorage.setItem('wrench_cookies_accepted', '1');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+    if (loc
