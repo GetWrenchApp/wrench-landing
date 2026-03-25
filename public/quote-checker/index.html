@@ -534,7 +534,7 @@
 
     <h1>
       Are you charging<br>
-      <span class="orange">enough?</span> 
+      <span class="orange">enough?</span>
     </h1>
 
     <p class="hero-sub">
@@ -673,8 +673,8 @@
         <div class="upsell-feat"><span class="upsell-feat-icon">📦</span> Inventory tracking</div>
         <div class="upsell-feat"><span class="upsell-feat-icon">⭐</span> Review requests</div>
       </div>
-      <a href="https://app.getwrenchapp.com/signup" class="btn-upsell">
-        Start free 14-day trial →
+      <a id="upsellBtn" href="https://app.getwrenchapp.com/signup?from=quote-checker" class="btn-upsell">
+        Turn this estimate into a real quote →
       </a>
       <p class="upsell-note">No credit card required · Cancel any time</p>
     </div>
@@ -760,11 +760,11 @@
 
   <!-- STICKY SAVE BAR -->
   <div class="save-bar" id="saveBar">
-    <div class="save-bar-text">
-      <strong>Want to save this estimate?</strong><br>
-      Attach it to a real quote in Wrench — free for 14 days.
+    <div class="save-bar-text" id="saveBarText">
+      <strong>Turn this into a real quote in Wrench</strong><br>
+      Pre-filled with your numbers — free for 14 days.
     </div>
-    <a href="https://app.getwrenchapp.com/signup" class="btn-save-bar">Save to Wrench →</a>
+    <a id="saveBarBtn" href="https://app.getwrenchapp.com/signup?from=quote-checker" class="btn-save-bar">Save to Wrench →</a>
     <button class="save-bar-close" onclick="dismissBar()" aria-label="Dismiss">✕</button>
   </div>
 
@@ -900,6 +900,32 @@
         </div>
         ${tipHtml}
       `;
+
+      // Build prefill URL — encodes calc values so the app can pre-populate a quote
+      const prefill = {
+        price:         q || 0,
+        materials:     m || 0,
+        ownerHours:    oh || 0,
+        employeeHours: eh || 0,
+        ownerRate:     or || 85,
+        suggested:     Math.round(suggested * 100) / 100,
+      };
+      const params = new URLSearchParams({ from: 'quote-checker', ...prefill }).toString();
+      const signupUrl = `https://app.getwrenchapp.com/signup?${params}`;
+      const loginUrl  = `https://app.getwrenchapp.com/?${params}`;
+
+      // Update both CTAs with live URL
+      const saveBarBtn = document.getElementById('saveBarBtn');
+      if (saveBarBtn) saveBarBtn.href = signupUrl;
+
+      const upsellBtn = document.getElementById('upsellBtn');
+      if (upsellBtn) upsellBtn.href = signupUrl;
+
+      // Update save bar text to reflect the actual suggested price
+      const saveBarText = document.getElementById('saveBarText');
+      if (saveBarText && hasQuote) {
+        saveBarText.innerHTML = `<strong>Turn this into a real quote in Wrench</strong><br>Pre-filled with your numbers — free for 14 days.`;
+      }
 
       // Show upsell + proof after first calculation
       document.getElementById('upsell').style.display = 'block';
