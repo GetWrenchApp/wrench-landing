@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Contractor Quote Calculator — Are You Charging Enough? | Wrench</title>
+  <meta name="description" content="Free quote calculator for plumbers, HVAC techs, electricians, and landscapers. Enter your price, materials, and labor hours — get your minimum price, suggested quote, and profit margin instantly. No sign-up needed." />
+  <meta name="keywords" content="contractor quote calculator, how much to charge for a job, contractor pricing tool, plumber quote calculator, HVAC estimate calculator, electrician pricing calculator, landscaping quote tool, field service estimate, am I charging enough, contractor profit calculator" />
+  <link rel="canonical" href="https://getwrenchapp.com/quote-checker" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Free Contractor Quote Calculator — Are You Charging Enough?" />
+  <meta property="og:description" content="Stop guessing on estimates. Enter your quote price, materials, and hours — get your minimum price, suggested quote, and profit margin instantly. Free, no sign-up." />
+  <meta property="og:url" content="https://getwrenchapp.com/quote-checker" />
+  <meta property="og:image" content="https://getwrenchapp.com/og-quote-checker.png" />
+  <meta property="og:site_name" content="Wrench" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Contractor Quote Calculator — Are You Charging Enough?" />
+  <meta name="twitter:description" content="Enter your quote price, materials, and hours. We'll tell you instantly if you're leaving money on the table." />
+  <meta name="twitter:image" content="https://getwrenchapp.com/og-quote-checker.png" />
+
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Wrench" />
+
+  <!-- JSON-LD: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Contractor Quote Calculator",
+    "url": "https://getwrenchapp.com/quote-checker",
+    "description": "A free calculator for contractors to determine minimum quote price, suggested quote, and profit margin based on materials, labor hours, and hourly rate targets.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Wrench",
+      "url": "https://getwrenchapp.com"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage (GEO — AI search visibility) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I know if I'm charging enough for a job?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To check if you're charging enough, add up your total labor cost (owner hours × your hourly rate + employee hours × their cost) and your material cost. That sum is your minimum price — the floor below which you lose money. A healthy quote should be 8–15% above that minimum to protect against callbacks, scope creep, and estimation errors."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate the minimum price for a contractor job?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Minimum price = (owner hours × owner hourly target) + (employee hours × employee hourly cost) + material cost. This covers your labor and materials at break-even. Add a 8–15% buffer on top for your suggested quote price."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should a contractor's hourly rate be?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most solo contractors need $65–$110/hr in revenue to actually profit after taxes, insurance, vehicle costs, and overhead. To calculate your own rate: add up your total monthly business expenses, divide by your average billable hours per month. That's your break-even rate — your target rate should be above it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a quote buffer and why do contractors use it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A quote buffer is a percentage added above your minimum price to protect against common risks: jobs that take longer than estimated, callbacks to fix issues, small scope changes the customer didn't mention, and material price increases. A typical buffer is 8–15% above minimum cost."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate revenue per labor hour on a job?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Revenue per labor hour = (quote price − material cost) ÷ total labor hours. This tells you how much you're earning per hour of work, net of materials. Compare this to your required blended hourly rate to see if the job is profitable."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Wrench", "item": "https://getwrenchapp.com" },
+      { "@type": "ListItem", "position": 2, "name": "Quote Calculator", "item": "https://getwrenchapp.com/quote-checker" }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/png" href="/logo-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:       #F97316;
+      --orange-dark:  #EA6C0A;
+      --orange-pale:  #FFF4ED;
+      --orange-light: #FFEDD5;
+      --orange-mid:   #FED7AA;
+      --navy:         #1F2933;
+      --navy-light:   #2D3A45;
+      --cream:        #FDFAF6;
+      --cream-dark:   #F5F0E8;
+      --cream-border: #E8E0D0;
+      --white:        #FFFFFF;
+      --text:         #1A1F25;
+      --muted:        #6B6560;
+      --green:        #22C55E;
+      --green-pale:   #F0FDF4;
+      --green-border: #BBF7D0;
+      --red:          #EF4444;
+      --red-pale:     #FEF2F2;
+      --red-border:   #FECACA;
+      --yellow:       #F59E0B;
+      --yellow-pale:  #FFFBEB;
+      --yellow-border:#FDE68A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9998;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 0 32px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(253,250,246,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--cream-border);
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark {
+      width: 32px; height: 32px; background: var(--navy);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px; font-weight: 900; color: var(--navy);
+      text-transform: uppercase; letter-spacing: -0.5px;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+
+    .btn-ghost-sm {
+      color: var(--muted); font-size: 13px; font-weight: 600;
+      padding: 7px 14px; border-radius: 7px; text-decoration: none;
+      border: 1px solid var(--cream-border); background: transparent;
+      transition: all 0.2s; cursor: pointer; font-family: inherit;
+    }
+    .btn-ghost-sm:hover { color: var(--text); background: var(--cream-dark); }
+
+    .btn-primary {
+      background: var(--orange); color: white; font-size: 13px; font-weight: 700;
+      padding: 8px 18px; border-radius: 7px; text-decoration: none;
+      border: none; cursor: pointer; font-family: inherit;
+      box-shadow: 0 2px 10px rgba(249,115,22,0.3);
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 110px 24px 60px;
+      text-align: center;
+      position: relative; overflow: hidden;
+      background: var(--cream);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--cream-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--cream-border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.5;
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 20%, black 20%, transparent 80%);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(249,115,22,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--orange-pale); border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 11px; font-weight: 700; color: var(--orange-dark);
+      letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 24px; position: relative; z-index: 1;
+      animation: fadeInDown 0.5s ease both;
+    }
+
+    .badge-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(52px, 10vw, 96px);
+      font-weight: 900; line-height: 0.9;
+      letter-spacing: -2px; text-transform: uppercase;
+      color: var(--navy); position: relative; z-index: 1;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
+
+    .hero h1 .orange { color: var(--orange); }
+    .hero h1 .outline {
+      color: var(--cream-border);
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 2.5vw, 18px); color: var(--muted);
+      max-width: 540px; margin: 0 auto 32px; line-height: 1.65;
+      position: relative; z-index: 1;
+      animation: fadeInUp 0.6s ease 0.2s both;
+    }
+
+    .hero-proof {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; flex-wrap: wrap;
+      font-size: 13px; color: var(--muted); font-weight: 500;
+      position: relative; z-index: 1;
+      animation: fadeInUp 0.6s ease 0.3s both;
+    }
+    .hero-proof-item { display: flex; align-items: center; gap: 6px; }
+    .hero-proof-check { color: var(--green); font-size: 14px; font-weight: 700; }
+    .hero-proof-div { width: 1px; height: 14px; background: var(--cream-border); }
+
+    @keyframes fadeInDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInUp   { from{opacity:0;transform:translateY(16px)}  to{opacity:1;transform:translateY(0)} }
+
+    /* ── CALCULATOR ── */
+    .calc-wrap {
+      max-width: 640px; margin: 0 auto;
+      padding: 0 16px 80px;
+    }
+
+    .calc-card {
+      background: var(--white);
+      border: 1px solid var(--cream-border);
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .calc-header {
+      background: var(--navy);
+      padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .calc-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px; font-weight: 800; color: white;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .calc-header-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+    .calc-tabs {
+      display: flex; border-bottom: 1px solid var(--cream-border);
+    }
+    .calc-tab {
+      flex: 1; padding: 12px; text-align: center;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      border: none; background: transparent; font-family: inherit;
+      color: var(--muted); border-bottom: 2px solid transparent;
+      transition: all 0.2s; margin-bottom: -1px;
+    }
+    .calc-tab.active { color: var(--navy); border-bottom-color: var(--orange); }
+
+    .calc-body { padding: 20px; }
+
+    .field-group { margin-bottom: 16px; }
+    .field-label {
+      display: block; font-size: 11px; font-weight: 700;
+      color: var(--muted); text-transform: uppercase;
+      letter-spacing: .6px; margin-bottom: 5px;
+    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field-wrap { position: relative; }
+    .field-prefix {
+      position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      pointer-events: none; transition: color 0.15s;
+    }
+    .field-input {
+      width: 100%; padding: 10px 12px 10px 26px;
+      border: 1.5px solid var(--cream-border);
+      border-radius: 8px; font-size: 15px; color: var(--text);
+      background: var(--cream); font-family: inherit;
+      outline: none; transition: all 0.15s;
+    }
+    .field-input.no-prefix { padding-left: 12px; }
+    .field-input:focus {
+      border-color: var(--orange); background: white;
+      box-shadow: 0 0 0 3px var(--orange-pale);
+    }
+    .field-input:focus + .field-prefix,
+    .field-wrap:focus-within .field-prefix { color: var(--orange); }
+    .field-hint { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+
+    .section-label {
+      font-size: 10px; font-weight: 800; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .8px;
+      margin-bottom: 14px; display: flex; align-items: center; gap: 7px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--cream-border);
+    }
+
+    /* Results */
+    .result-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 9px 0; border-bottom: 1px solid var(--cream-border);
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-row.large { padding: 12px 0; }
+    .result-label { font-size: 13px; font-weight: 500; color: var(--muted); }
+    .result-label.strong { font-weight: 700; color: var(--text); font-size: 14px; }
+    .result-sub { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+    .result-val { font-size: 14px; font-weight: 700; color: var(--text); white-space: nowrap; }
+    .result-val.large { font-size: 17px; }
+    .result-val.green { color: var(--green); }
+    .result-val.red { color: var(--red); }
+    .result-val.orange { color: var(--orange); }
+
+    /* Status banner */
+    .status-banner {
+      border-radius: 12px; padding: 14px 16px;
+      text-align: center; margin-bottom: 16px;
+      border: 1.5px solid transparent;
+    }
+    .status-banner.pass { background: var(--green-pale); border-color: var(--green-border); }
+    .status-banner.warn { background: var(--yellow-pale); border-color: var(--yellow-border); }
+    .status-banner.fail { background: var(--red-pale); border-color: var(--red-border); }
+    .status-title { font-size: 15px; font-weight: 800; }
+    .status-title.pass { color: var(--green); }
+    .status-title.warn { color: var(--yellow); }
+    .status-title.fail { color: var(--red); }
+    .status-sub { font-size: 12px; margin-top: 3px; opacity: 0.8; }
+    .status-sub.pass { color: var(--green); }
+    .status-sub.warn { color: #92400E; }
+    .status-sub.fail { color: var(--red); }
+
+    /* Suggestion tip */
+    .tip-box {
+      background: var(--orange-pale); border: 1px solid var(--orange-mid);
+      border-radius: 12px; padding: 14px 16px; margin-top: 14px;
+    }
+    .tip-title { font-size: 13px; font-weight: 700; color: var(--orange-dark); margin-bottom: 5px; }
+    .tip-body { font-size: 13px; color: #92400E; line-height: 1.65; }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center; padding: 48px 20px;
+      color: var(--muted);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 14px; }
+    .empty-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; text-transform: uppercase; color: var(--navy); margin-bottom: 6px; }
+    .empty-sub { font-size: 14px; line-height: 1.65; }
+
+    /* ── UPSELL CARD ── */
+    .upsell-card {
+      background: var(--navy);
+      border-radius: 16px; overflow: hidden;
+      padding: 28px 24px; margin-bottom: 16px;
+      position: relative;
+    }
+    .upsell-card::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(ellipse, rgba(249,115,22,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .upsell-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3);
+      border-radius: 100px; padding: 4px 12px;
+      font-size: 10px; font-weight: 700; color: var(--orange);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .upsell-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px; font-weight: 900; color: white;
+      text-transform: uppercase; letter-spacing: -0.5px;
+      line-height: 1; margin-bottom: 10px;
+    }
+    .upsell-title .orange { color: var(--orange); }
+    .upsell-sub { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 20px; }
+    .upsell-features { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 22px; }
+    .upsell-feat {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; color: rgba(255,255,255,0.75); font-weight: 500;
+    }
+    .upsell-feat-icon { font-size: 14px; flex-shrink: 0; }
+    .btn-upsell {
+      display: block; text-align: center; width: 100%;
+      background: var(--orange); color: white;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.5px; padding: 14px 24px;
+      border-radius: 10px; text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(249,115,22,0.4);
+      transition: all 0.2s;
+    }
+    .btn-upsell:hover { background: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 6px 28px rgba(249,115,22,0.5); }
+    .upsell-note { font-size: 12px; color: rgba(255,255,255,0.4); text-align: center; margin-top: 10px; }
+
+    /* ── SOCIAL PROOF STRIP ── */
+    .proof-strip {
+      background: var(--cream-dark); border-top: 1px solid var(--cream-border);
+      border-bottom: 1px solid var(--cream-border);
+      padding: 20px 24px; margin-bottom: 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .proof-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+    }
+    .proof-icon { font-size: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); padding: 28px 24px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 900; color: white;
+      text-transform: uppercase; letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .footer-logo span { color: var(--orange); }
+    .footer-text { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 14px; }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.5); text-decoration: none; }
+    .footer-links a:hover { color: white; }
+
+    /* Save prompt (sticky bar after calculation) */
+    .save-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 400;
+      background: var(--navy); border-top: 2px solid var(--orange);
+      padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.2);
+      transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .save-bar.visible { transform: translateY(0); }
+    .save-bar-text { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.45; flex: 1; }
+    .save-bar-text strong { color: white; }
+    .btn-save-bar {
+      background: var(--orange); color: white; border: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px; font-weight: 800; text-transform: uppercase;
+      padding: 10px 20px; border-radius: 8px; cursor: pointer;
+      white-space: nowrap; text-decoration: none; display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-save-bar:hover { background: var(--orange-dark); }
+    .save-bar-close {
+      background: none; border: none; color: rgba(255,255,255,0.4);
+      cursor: pointer; font-size: 18px; padding: 4px; line-height: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .field-row { grid-template-columns: 1fr; }
+      .upsell-features { grid-template-columns: 1fr; }
+      nav { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="https://getwrenchapp.com" class="nav-logo">
+      <div class="nav-logo-mark">🔧</div>
+      <span class="nav-logo-text">Wrench</span>
+    </a>
+    <div class="nav-right">
+      <a href="https://app.getwrenchapp.com/login" class="btn-ghost-sm">Sign in</a>
+      <a href="https://app.getwrenchapp.com/signup" class="btn-primary">Free trial →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Free Tool for Contractors
+    </div>
+
+    <h1>
+      Are you charging<br>
+      <span class="orange">enough</span> for<br>
+      <span class="outline">that job?</span>
+    </h1>
+
+    <p class="hero-sub">
+      Enter your quote price, materials, and labor hours.
+      We'll tell you instantly if you're leaving money on the table — and exactly what to charge.
+    </p>
+
+    <div class="hero-proof">
+      <div class="hero-proof-item"><span class="hero-proof-check">✓</span> No sign-up required</div>
+      <div class="hero-proof-div"></div>
+      <div class="hero-proof-item"><span class="hero-proof-check">✓</span> Works in 30 seconds</div>
+      <div class="hero-proof-div"></div>
+      <div class="hero-proof-item"><span class="hero-proof-check">✓</span> Built for trades</div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <div class="calc-wrap">
+
+    <!-- Inputs -->
+    <div class="calc-card">
+      <div class="calc-header">
+        <div>
+          <div class="calc-header-title">📋 Your Estimate</div>
+          <div class="calc-header-sub">Fill in the details below</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="calc-tab active" onclick="switchTab('estimate',this)" id="tab-estimate" style="color:rgba(255,255,255,0.5);border-bottom-color:transparent;background:rgba(255,255,255,0.08);border-radius:7px;padding:6px 14px;font-size:12px;font-weight:700;font-family:inherit;border:none;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="">
+            Estimate
+          </button>
+          <button onclick="switchTab('rates',this)" id="tab-rates" style="color:rgba(255,255,255,0.5);border-bottom-color:transparent;background:rgba(255,255,255,0.08);border-radius:7px;padding:6px 14px;font-size:12px;font-weight:700;font-family:inherit;border:none;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="">
+            ⚙ My Rates
+          </button>
+        </div>
+      </div>
+
+      <!-- Estimate tab -->
+      <div id="pane-estimate" class="calc-body">
+        <div class="section-label">Job Details</div>
+
+        <div class="field-group">
+          <label class="field-label" for="quotePrice">Your Quote Price</label>
+          <div class="field-wrap">
+            <span class="field-prefix">$</span>
+            <input class="field-input" type="number" id="quotePrice" placeholder="0.00" oninput="calculate()" />
+          </div>
+          <div class="field-hint">What you plan to charge the customer</div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="materials">Material / Parts Cost</label>
+          <div class="field-wrap">
+            <span class="field-prefix">$</span>
+            <input class="field-input" type="number" id="materials" placeholder="0.00" oninput="calculate()" />
+          </div>
+          <div class="field-hint">What you'll spend buying supplies</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="ownerHours">Your Hours</label>
+            <div class="field-wrap">
+              <span class="field-prefix">h</span>
+              <input class="field-input" type="number" id="ownerHours" placeholder="0" step="0.5" oninput="calculate()" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="employeeHours">Employee Hours</label>
+            <div class="field-wrap">
+              <span class="field-prefix">h</span>
+              <input class="field-input" type="number" id="employeeHours" placeholder="0" step="0.5" oninput="calculate()" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rates tab -->
+      <div id="pane-rates" class="calc-body" style="display:none;">
+        <div class="section-label">Your Labor Targets</div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="ownerRate">Owner Rate / hr</label>
+            <div class="field-wrap">
+              <span class="field-prefix">$</span>
+              <input class="field-input" type="number" id="ownerRate" value="85" oninput="calculate()" />
+            </div>
+            <div class="field-hint">Revenue you need per hour</div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="employeeRate">Employee Cost / hr</label>
+            <div class="field-wrap">
+              <span class="field-prefix">$</span>
+              <input class="field-input" type="number" id="employeeRate" value="35" oninput="calculate()" />
+            </div>
+            <div class="field-hint">What you pay them (incl. burden)</div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="bufferPct">Quote Buffer %</label>
+          <div class="field-wrap">
+            <span class="field-prefix">%</span>
+            <input class="field-input" type="number" id="bufferPct" value="8" min="0" max="50" oninput="calculate()" />
+          </div>
+          <div class="field-hint">Extra padding above minimum — protects against callbacks and scope creep</div>
+        </div>
+
+        <div style="background:var(--orange-pale);border:1px solid var(--orange-mid);border-radius:10px;padding:12px 14px;margin-top:4px;">
+          <div style="font-size:12px;color:#92400E;line-height:1.65;">
+            💡 <strong>Pro tip:</strong> Set your owner rate to your total monthly overhead ÷ your billable hours. Most solo contractors need $65–$110/hr to actually profit after taxes.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results area -->
+    <div id="results"></div>
+
+    <!-- Upsell — always shown after results appear, or after first calc -->
+    <div class="upsell-card" id="upsell" style="display:none;">
+      <div class="upsell-tag">
+        <span>✦</span> Built for the Trades
+      </div>
+      <div class="upsell-title">
+        Save estimates.<br>
+        Send <span class="orange">quotes.</span><br>
+        Get paid.
+      </div>
+      <p class="upsell-sub">Wrench connects your estimates to real quotes, jobs, and invoices — all from your phone. $25/month, no contracts.</p>
+      <div class="upsell-features">
+        <div class="upsell-feat"><span class="upsell-feat-icon">📋</span> Quotes & estimates</div>
+        <div class="upsell-feat"><span class="upsell-feat-icon">🔧</span> Job scheduling</div>
+        <div class="upsell-feat"><span class="upsell-feat-icon">💰</span> Invoicing</div>
+        <div class="upsell-feat"><span class="upsell-feat-icon">👥</span> Team management</div>
+        <div class="upsell-feat"><span class="upsell-feat-icon">📦</span> Inventory tracking</div>
+        <div class="upsell-feat"><span class="upsell-feat-icon">⭐</span> Review requests</div>
+      </div>
+      <a href="https://app.getwrenchapp.com/signup" class="btn-upsell">
+        Start free 14-day trial →
+      </a>
+      <p class="upsell-note">No credit card required · Cancel any time</p>
+    </div>
+
+  </div><!-- /calc-wrap -->
+
+  <!-- PROOF STRIP -->
+  <div class="proof-strip" id="proof" style="display:none;">
+    <div class="proof-item"><span class="proof-icon">🔧</span> Plumbers & HVAC</div>
+    <div class="proof-item"><span class="proof-icon">🌿</span> Landscapers</div>
+    <div class="proof-item"><span class="proof-icon">⚡</span> Electricians</div>
+    <div class="proof-item"><span class="proof-icon">🏠</span> General Contractors</div>
+  </div>
+
+  <!-- FAQ — GEO/AI search visibility -->
+  <section style="background:var(--cream-dark);border-top:1px solid var(--cream-border);padding:64px 24px;">
+    <div style="max-width:640px;margin:0 auto;">
+      <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;">FAQ</div>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(32px,6vw,48px);font-weight:900;text-transform:uppercase;color:var(--navy);letter-spacing:-1px;margin-bottom:32px;line-height:1;">
+        Common <span style="color:var(--orange);">questions</span>
+      </h2>
+
+      <div style="display:grid;gap:12px;">
+
+        <details style="background:var(--white);border:1px solid var(--cream-border);border-radius:12px;padding:18px 20px;cursor:pointer;">
+          <summary style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            How do I know if I'm charging enough for a job?
+            <span style="color:var(--orange);font-size:18px;flex-shrink:0;">+</span>
+          </summary>
+          <p style="margin-top:12px;font-size:14px;color:var(--muted);line-height:1.7;">Add up your total labor cost (your hours × your hourly target + employee hours × their cost) plus materials. That's your break-even floor — your minimum price. A healthy quote is 8–15% above that to cover callbacks, scope creep, and estimation errors. If your quote is below that floor, you're paying to do the job.</p>
+        </details>
+
+        <details style="background:var(--white);border:1px solid var(--cream-border);border-radius:12px;padding:18px 20px;cursor:pointer;">
+          <summary style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            What should my hourly rate be as a contractor?
+            <span style="color:var(--orange);font-size:18px;flex-shrink:0;">+</span>
+          </summary>
+          <p style="margin-top:12px;font-size:14px;color:var(--muted);line-height:1.7;">Most solo contractors need $65–$110/hr in revenue to actually profit after taxes, insurance, vehicle costs, and overhead. Calculate yours: add up all monthly business expenses, divide by average billable hours per month. That's your break-even rate — your target should be above it. Don't just charge what competitors charge; charge what your numbers require.</p>
+        </details>
+
+        <details style="background:var(--white);border:1px solid var(--cream-border);border-radius:12px;padding:18px 20px;cursor:pointer;">
+          <summary style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            What is a quote buffer and why does it matter?
+            <span style="color:var(--orange);font-size:18px;flex-shrink:0;">+</span>
+          </summary>
+          <p style="margin-top:12px;font-size:14px;color:var(--muted);line-height:1.7;">A quote buffer is a percentage added above your minimum price — typically 8–15% — to protect against jobs running long, small scope changes, a callback, or materials costing more than expected. Without a buffer, any surprise turns a profitable job into a losing one. Think of it as built-in insurance on every estimate.</p>
+        </details>
+
+        <details style="background:var(--white);border:1px solid var(--cream-border);border-radius:12px;padding:18px 20px;cursor:pointer;">
+          <summary style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            How do I calculate revenue per labor hour?
+            <span style="color:var(--orange);font-size:18px;flex-shrink:0;">+</span>
+          </summary>
+          <p style="margin-top:12px;font-size:14px;color:var(--muted);line-height:1.7;">Revenue per labor hour = (quote price − material cost) ÷ total labor hours. This strips out materials and shows how much you're actually earning per hour of work. Compare it to your required hourly rate to know instantly if the job is worth taking — or if you need to re-quote.</p>
+        </details>
+
+        <details style="background:var(--white);border:1px solid var(--cream-border);border-radius:12px;padding:18px 20px;cursor:pointer;">
+          <summary style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            What does Wrench do beyond this calculator?
+            <span style="color:var(--orange);font-size:18px;flex-shrink:0;">+</span>
+          </summary>
+          <p style="margin-top:12px;font-size:14px;color:var(--muted);line-height:1.7;">Wrench is field service management software for plumbers, HVAC techs, electricians, landscapers, and other trades businesses. It handles quotes, job scheduling, invoicing, team management, inventory tracking, automated customer follow-ups, and Google review requests — all from your phone for $25/month. The Quote Checker is a free taste of what's inside.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Wr<span>e</span>nch</div>
+    <p class="footer-text">Field service software built for the trades · $25/mo</p>
+    <div class="footer-links">
+      <a href="https://getwrenchapp.com">Home</a>
+      <a href="https://app.getwrenchapp.com/signup">Sign up free</a>
+      <a href="https://app.getwrenchapp.com/login">Sign in</a>
+      <a href="https://getwrenchapp.com/terms.html">Terms</a>
+      <a href="https://getwrenchapp.com/privacy.html">Privacy</a>
+    </div>
+  </footer>
+
+  <!-- STICKY SAVE BAR -->
+  <div class="save-bar" id="saveBar">
+    <div class="save-bar-text">
+      <strong>Want to save this estimate?</strong><br>
+      Attach it to a real quote in Wrench — free for 14 days.
+    </div>
+    <a href="https://app.getwrenchapp.com/signup" class="btn-save-bar">Save to Wrench →</a>
+    <button class="save-bar-close" onclick="dismissBar()" aria-label="Dismiss">✕</button>
+  </div>
+
+  <script>
+    let barDismissed = false;
+    let hasCalculated = false;
+
+    function n(id) { return parseFloat(document.getElementById(id)?.value) || 0; }
+    function fmt(v) {
+      if (isNaN(v) || !isFinite(v)) return '—';
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(v);
+    }
+
+    function switchTab(tab, btn) {
+      document.getElementById('pane-estimate').style.display = tab === 'estimate' ? 'block' : 'none';
+      document.getElementById('pane-rates').style.display = tab === 'rates' ? 'block' : 'none';
+      ['tab-estimate','tab-rates'].forEach(id => {
+        const el = document.getElementById(id);
+        el.style.background = 'rgba(255,255,255,0.08)';
+        el.style.color = 'rgba(255,255,255,0.5)';
+      });
+      btn.style.background = 'rgba(249,115,22,0.25)';
+      btn.style.color = '#F97316';
+    }
+
+    function makeRow(label, val, sub, valClass, labelStrong, noBorder) {
+      return `<div class="result-row${labelStrong?' large':''}">
+        <div>
+          <div class="result-label${labelStrong?' strong':''}">${label}</div>
+          ${sub ? `<div class="result-sub">${sub}</div>` : ''}
+        </div>
+        <div class="result-val${labelStrong?' large':''} ${valClass||''}">${val}</div>
+      </div>`;
+    }
+
+    function calculate() {
+      const q  = n('quotePrice'),  m  = n('materials');
+      const oh = n('ownerHours'),  eh = n('employeeHours');
+      const or = n('ownerRate'),   er = n('employeeRate');
+      const buf = (n('bufferPct') || 8) / 100;
+
+      const totalHours   = oh + eh;
+      const netRevenue   = q - m;
+      const revPerHour   = totalHours > 0 ? netRevenue / totalHours : 0;
+      const laborCost    = oh * or + eh * er;
+      const blendedRate  = totalHours > 0 ? laborCost / totalHours : or;
+      const minPrice     = laborCost + m;
+      const suggested    = minPrice * (1 + buf);
+      const priceDiff    = q - minPrice;
+      const hourlyDiff   = revPerHour - blendedRate;
+      const bufPct       = n('bufferPct') || 8;
+
+      const hasData  = totalHours > 0;
+      const hasQuote = q > 0 && hasData;
+
+      const out = document.getElementById('results');
+
+      if (!hasData) {
+        out.innerHTML = `<div class="calc-card"><div class="empty-state">
+          <div class="empty-icon">🔧</div>
+          <div class="empty-title">Enter your hours above</div>
+          <div class="empty-sub">Fill in the job details and we'll tell you exactly what to charge to hit your target.</div>
+        </div></div>`;
+        document.getElementById('upsell').style.display = 'none';
+        document.getElementById('proof').style.display = 'none';
+        return;
+      }
+
+      hasCalculated = true;
+
+      // Status banner
+      let bannerHtml = '';
+      if (hasQuote) {
+        const pct = ((priceDiff / minPrice) * 100).toFixed(0);
+        if (q >= suggested) {
+          bannerHtml = `<div class="status-banner pass">
+            <div class="status-title pass">✓ Strong Estimate</div>
+            <div class="status-sub pass">${pct}% above minimum — you're well covered</div>
+          </div>`;
+        } else if (q >= minPrice) {
+          bannerHtml = `<div class="status-banner warn">
+            <div class="status-title warn" style="color:var(--yellow)">⚡ Meets Minimum</div>
+            <div class="status-sub warn">Hits your floor — consider adding a ${bufPct}% buffer for safety</div>
+          </div>`;
+        } else {
+          bannerHtml = `<div class="status-banner fail">
+            <div class="status-title fail">✗ Below Minimum</div>
+            <div class="status-sub fail">Add ${fmt(Math.abs(priceDiff))} to break even on this job</div>
+          </div>`;
+        }
+      }
+
+      // Performance block
+      const perfRows = [
+        makeRow('Total Labor Hours', `${totalHours.toFixed(1)} hrs`, '', '', true),
+        makeRow('Revenue per Hour', fmt(revPerHour), '(Quote − materials) ÷ total hours', revPerHour >= blendedRate ? 'green' : 'red', true),
+        makeRow('Your Required Rate / Hour', fmt(blendedRate), 'Blended target based on your labor mix', '', false),
+        makeRow('Hourly Difference', (hourlyDiff >= 0 ? '+' : '') + fmt(hourlyDiff), '', hourlyDiff >= 0 ? 'green' : 'red'),
+      ].join('');
+
+      // Pricing block
+      const priceRows = [
+        makeRow('Required Minimum Price', fmt(minPrice), 'Labor cost + materials', '', true),
+        makeRow(`Suggested Quote (+${bufPct}%)`, fmt(suggested), 'Includes buffer for callbacks & scope creep', 'orange', true),
+        ...(hasQuote ? [
+          makeRow('Your Quote', fmt(q), '', '', true),
+          makeRow('Price Difference', (priceDiff >= 0 ? '+' : '') + fmt(priceDiff), priceDiff >= 0 ? 'Extra profit above minimum' : 'Shortfall — you\'ll lose money here', priceDiff >= 0 ? 'green' : 'red', true),
+        ] : []),
+      ].join('');
+
+      // Tip
+      const tipHtml = hasQuote && q < minPrice ? `<div class="tip-box">
+        <div class="tip-title">💡 Pricing Suggestion</div>
+        <div class="tip-body">
+          Quote <strong>${fmt(suggested)}</strong> to cover your costs plus a ${bufPct}% buffer.
+          Your absolute floor is <strong>${fmt(minPrice)}</strong> — below that you're paying to do this job.
+        </div>
+      </div>` : '';
+
+      out.innerHTML = `
+        ${bannerHtml}
+        <div class="calc-card">
+          <div class="calc-body">
+            <div class="section-label">📊 Estimate Performance</div>
+            ${perfRows}
+          </div>
+        </div>
+        <div class="calc-card">
+          <div class="calc-body">
+            <div class="section-label">💰 Pricing Decision</div>
+            ${priceRows}
+          </div>
+        </div>
+        ${tipHtml}
+      `;
+
+      // Show upsell + proof after first calculation
+      document.getElementById('upsell').style.display = 'block';
+      document.getElementById('proof').style.display = 'flex';
+
+      // Show save bar after a moment
+      if (!barDismissed) {
+        setTimeout(() => {
+          document.getElementById('saveBar').classList.add('visible');
+        }, 1800);
+      }
+    }
+
+    function dismissBar() {
+      barDismissed = true;
+      document.getElementById('saveBar').classList.remove('visible');
+    }
+
+    // Scroll reveal for upsell
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.style.opacity = '1';
+      });
+    }, { threshold: 0.1 });
+  </script>
+
+</body>
+</html>
