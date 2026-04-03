@@ -357,7 +357,7 @@
       .phone-tab { padding: 7px 14px; font-size: 12px; }
     }
 
-    /* ── TICKER ── */
+        /* ── TICKER ── */
     .ticker-wrap { background: var(--navy); padding: 12px 0; overflow: hidden; white-space: nowrap; }
     .ticker-track { display: inline-flex; animation: ticker 24s linear infinite; }
     .ticker-item { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); padding: 0 36px; display: flex; align-items: center; gap: 16px; }
@@ -1072,7 +1072,7 @@
         <li><a href="https://app.getwrenchapp.com/signup">Sign up</a></li>
         <li><a href="/terms.html">Terms</a></li>
         <li><a href="/privacy.html">Privacy</a></li>
-        <li><a href="/cdn-cgi/l/email-protection#02717772726d7076426567767570676c616a6372722c616d6f">Contact</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#cdbeb8bdbda2bfb98daaa8b9babfa8a3aea5acbdbde3aea2a0">Contact</a></li>
       </ul>
     </div>
   </footer>
@@ -1155,6 +1155,13 @@
       }
     });
 
+    // FAQ icon toggle
+    document.querySelectorAll('details').forEach(el => {
+      el.addEventListener('toggle', () => {
+          const icon = el.querySelector('.faq-icon');
+        if (icon) icon.textContent = el.open ? '−' : '+';
+      });
+    });
 
     // Phone showcase tab switching
     document.querySelectorAll('.phone-tab').forEach(tab => {
@@ -1164,11 +1171,10 @@
         document.querySelectorAll('.phone-img').forEach(i => i.classList.remove('active'));
         document.querySelectorAll('.phone-caption').forEach(c => c.classList.remove('active'));
         tab.classList.add('active');
-        document.querySelector(`.phone-img[data-screen="${screen}"]`).classList.add('active');
-        document.querySelector(`.phone-caption[data-screen="${screen}"]`).classList.add('active');
+        document.querySelector('.phone-img[data-screen="' + screen + '"]').classList.add('active');
+        document.querySelector('.phone-caption[data-screen="' + screen + '"]').classList.add('active');
       });
     });
-
-    // FAQ icon toggle
-    document.querySelectorAll('details').forEach(el => {
-      el.addEventListener('toggle', () => {
+  </script>
+</body>
+</html>
