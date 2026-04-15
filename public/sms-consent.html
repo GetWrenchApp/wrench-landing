@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMS Messaging Policy — Wrench</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #F97316;
+      --orange-light: #FFF7ED;
+      --orange-border: #FED7AA;
+      --navy: #1F2933;
+      --text: #111827;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --bg: #F9FAFB;
+      --card: #ffffff;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--navy);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--orange);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+    /* ── Hero band ── */
+    .hero {
+      background: var(--orange-light);
+      border-bottom: 1px solid var(--orange-border);
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .hero h1 {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 28px;
+      margin-bottom: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--orange-light);
+      border: 1px solid var(--orange-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .card-body {
+      font-size: 14.5px;
+      color: #374151;
+      line-height: 1.7;
+    }
+
+    .card-body p + p {
+      margin-top: 10px;
+    }
+
+    /* ── Message examples ── */
+    .msg-example {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+      font-size: 13.5px;
+      color: #374151;
+      position: relative;
+    }
+
+    .msg-example::before {
+      content: attr(data-label);
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+
+    /* ── Tag list ── */
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 13px;
+      font-size: 13px;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* ── Inline rule list ── */
+    .rule-list {
+      list-style: none;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rule-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: #374151;
+    }
+
+    .rule-list li::before {
+      content: "→";
+      color: var(--orange);
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Stop highlight ── */
+    .stop-highlight {
+      display: inline;
+      background: #FEF3C7;
+      border: 1px solid #FDE68A;
+      border-radius: 5px;
+      padding: 1px 7px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: #92400E;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    footer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    .updated-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 20px 18px; }
+      .hero { padding: 36px 16px 32px; }
+      main { padding: 28px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-mark">🔧</div>
+    <span class="logo-text">Wrench</span>
+  </header>
+
+  <div class="hero">
+    <div class="hero-badge">📱 SMS Policy</div>
+    <h1>Text Messaging Consent &amp; Policy</h1>
+    <p>How Wrench sends SMS messages to customers on behalf of independent contractors.</p>
+  </div>
+
+  <main>
+
+    <div class="updated-pill">
+      📅 Last updated: February 2026
+    </div>
+
+    <!-- How consent is obtained -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">✅</div>
+        <div>
+          <div class="card-title">How Consent Is Obtained</div>
+          <div class="card-subtitle">Opt-in process</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Wrench is a job management platform used by independent handymen and solo service contractors. Customers provide their mobile phone number directly to the contractor when requesting a quote, scheduling a job, or engaging services.</p>
+        <p>By providing their phone number, the customer consents to receive transactional SMS messages related to their service job — including quotes, appointment confirmations, invoices, and follow-up messages. No phone number is collected or used without direct customer interaction with the contractor.</p>
+      </div>
+    </div>
+
+    <!-- Message types -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">💬</div>
+        <div>
+          <div class="card-title">Types of Messages Sent</div>
+          <div class="card-subtitle">Transactional only — no marketing</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>All messages sent through Wrench are transactional in nature and directly related to a job or service interaction. Message types include:</p>
+        <div class="tag-list">
+          <span class="tag">📋 Quote delivery</span>
+          <span class="tag">📅 Appointment reminders</span>
+          <span class="tag">🧾 Invoice delivery</span>
+          <span class="tag">💳 Payment follow-ups</span>
+          <span class="tag">⭐ Review requests</span>
+          <span class="tag">📢 Job status updates</span>
+        </div>
+        <div class="msg-example" data-label="Example — Quote sent">
+          Hi Sarah, Mike's Handyman Service sent you a quote for $285.00. Reply to this message with any questions or to confirm. Reply STOP to opt out.
+        </div>
+        <div class="msg-example" data-label="Example — Appointment reminder">
+          Hi Sarah, reminder that Mike's Handyman Service is scheduled tomorrow at 9:00 AM at 123 Main St. Reply STOP to opt out.
+        </div>
+        <div class="msg-example" data-label="Example — Invoice ready">
+          Hi Sarah, your invoice from Mike's Handyman Service is ready — $285.00 due. Reply with questions or call Mike at (555) 000-0000. Reply STOP to opt out.
+        </div>
+      </div>
+    </div>
+
+    <!-- Frequency -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">📊</div>
+        <div>
+          <div class="card-title">Message Frequency</div>
+          <div class="card-subtitle">Job-based, not recurring</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Message frequency varies based on the scope of the job. Customers typically receive 2–5 messages per service engagement (e.g., quote, appointment reminder, invoice). No recurring or scheduled promotional messages are sent.</p>
+      </div>
+    </div>
+
+    <!-- Opt-out and Help -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🚫</div>
+        <div>
+          <div class="card-title">Opt-Out &amp; Help Instructions</div>
+          <div class="card-subtitle">Standard STOP / HELP support</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="rule-list">
+          <li>Reply <span class="stop-highlight">STOP</span> at any time to unsubscribe from all messages. You will receive a one-time confirmation and no further messages will be sent.</li>
+          <li>Reply <span class="stop-highlight">HELP</span> to receive support contact information for Wrench.</li>
+          <li>Opt-out instructions are included in all automated messages.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Data & Privacy -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🔒</div>
+        <div>
+          <div class="card-title">Data &amp; Privacy</div>
+          <div class="card-subtitle">No data sold or shared</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Phone numbers collected through Wrench are used solely to send transactional messages on behalf of the contractor. Phone numbers and message data are never sold or shared with third parties for marketing purposes.</p>
+        <p>For questions, contact us at <a href="mailto:support@getwrenchapp.com">support@getwrenchapp.com</a>.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div>Wrench · <a href="https://getwrenchapp.com">getwrenchapp.com</a></div>
+    <div style="margin-top:6px;">© 2026 Wrench. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
